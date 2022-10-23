@@ -14,4 +14,23 @@ RSpec.describe 'QuestionsController', type: :request do
       end
     end
   end
+
+  describe '#create' do
+    context 'as a non-logged-in user' do
+      context 'with valid params' do
+        let(:valid_params) { { body: 'DummyBody' } }
+        let(:create_action) { post questions_path, params: { question: valid_params } }
+
+        it 'creates a new question' do
+          expect { create_action }.to change { Question.count }.by(1)
+        end
+
+        it 'returns a created response' do
+          create_action
+
+          expect(response).to have_http_status(:created)
+        end
+      end
+    end
+  end
 end
