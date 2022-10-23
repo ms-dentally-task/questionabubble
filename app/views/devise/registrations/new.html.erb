@@ -22,6 +22,8 @@
       <%= f.password_field :password, autocomplete: "new-password" %>
     </div>
 
+    <%= hidden_field_tag :question, params[:question] %>
+
     <div class="actions mt-3">
       <%= f.submit "Sign up", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
     </div>
