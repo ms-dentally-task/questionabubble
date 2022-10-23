@@ -11,7 +11,8 @@ class QuestionsController < ApplicationController
     @question_response = QuestionResponse.new(question: @question)
     @question_responses = QuestionResponse.where(question: @question)
                                           .where.associated(:user)
-                                          .order(created_at: :desc).limit(500)
+                                          .left_joins(:votes)
+                                          .group(:id).order('COUNT(votes.id) DESC').limit(500)
     @user_votes = Vote.where(voteable: @question_responses, user: current_user)
   end
 
