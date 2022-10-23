@@ -7,4 +7,5 @@ Rails.application.routes.draw do
 
   resources :questions, only: [:new, :create, :show, :index]
   resources :question_responses, only: [:create, :show]
+  resources :votes, only: [:create, :destroy]
 end
