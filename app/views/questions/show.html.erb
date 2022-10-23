@@ -1,1 +1,13 @@
-<%= @question.body %>
+<div class="max-w-2xl mx-auto">
+  <%= render @question %>
+</div>
+
+<div class="max-w-md mx-auto mb-8">
+  <%= render 'question_responses/form', question_response: @question_response %>
+</div>
+
+<div class="columns-1 sm:columns-2 xl:columns-4">
+  <% @question_responses.each do |question_response| %>
+    <%= render question_response %>
+  <% end %>
+</div>

@@ -1,0 +1,25 @@
+<%= form_with(model: question_response, class: "contents", id: dom_id(question_response)) do |form| %>
+  <% if question_response.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2>
+        Your answer can't be saved due to <%= pluralize(question_response.errors.count, "error") %>:</h2>
+      <ul>
+        <% question_response.errors.each do |error| %>
+          <li><%= error.message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <div class="my-5">
+      <%= form.label :body, 'Your Answer' %>
+      <%= form.text_area :body, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full h-36" %>
+    </div>
+
+    <div class="text-center">
+      <%= form.hidden_field :question_id %>
+      <%= form.submit 'Submit Answer', class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    </div>
+  </div>
+<% end %>

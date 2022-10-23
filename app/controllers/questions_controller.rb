@@ -8,6 +8,10 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    @question_response = QuestionResponse.new(question: @question)
+    @question_responses = QuestionResponse.where(question: @question)
+                                          .where.associated(:user)
+                                          .order(created_at: :desc).limit(500)
   end
 
   def index
