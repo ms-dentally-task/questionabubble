@@ -12,9 +12,14 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
+    @question.user = current_user
 
     if @question.save
-      head :created
+      if @question.user
+        redirect_to question_path(@question)
+      else
+        redirect_to new_user_registration_path(question: @question.slug)
+      end
     else
       respond_to do |format|
         format.html { render :new }

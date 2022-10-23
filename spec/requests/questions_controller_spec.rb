@@ -29,20 +29,36 @@ RSpec.describe 'QuestionsController', type: :request do
   end
 
   describe '#create' do
+    let(:create_action) { post questions_path, params: { question: valid_params } }
+    let(:valid_params) { { body: 'DummyBody' } }
+
     context 'as a non-logged-in user' do
-      context 'with valid params' do
-        let(:valid_params) { { body: 'DummyBody' } }
-        let(:create_action) { post questions_path, params: { question: valid_params } }
+      it 'creates a new question' do
+        expect { create_action }.to change { Question.count }.by(1)
+      end
 
-        it 'creates a new question' do
-          expect { create_action }.to change { Question.count }.by(1)
-        end
+      it 'redirects to user registration' do
+        create_action
 
-        it 'returns a created response' do
+        question = Question.last
+
+        expect(response).to redirect_to(new_user_registration_path(question: question.slug))
+      end
+    end
+
+    context 'as a logged-in user' do
+      let(:user) { User.create!(name: 'DummyName', password: 'password', email: 'test@example.com') }
+
+      before do
+        sign_in user
+      end
+
+      it 'redirects to the question' do
           create_action
 
-          expect(response).to have_http_status(:created)
-        end
+          question = Question.last
+
+          expect(response).to redirect_to(question_path(question))
       end
     end
   end
