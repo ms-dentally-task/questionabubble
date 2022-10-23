@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   root "questions#new"
 
   resources :questions, only: [:new, :create, :show, :index]
+  resources :question_responses, only: [:create, :show]
 end
