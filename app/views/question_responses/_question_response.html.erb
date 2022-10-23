@@ -2,5 +2,25 @@
   <div class="text-xs mb-2 text-neutral-600 font-medium">
     <%= question_response.user.name %>'s answer:
   </div>
-  <%= simple_format question_response.body %>
+  <div class="mb-6">
+    <%= simple_format question_response.body %>
+  </div>
+  <div class="flex">
+    <div class="flex grow items-center">
+      <%= image_tag 'bubbles_up.svg', class: 'pr-2', alt: '' %>
+      <%= pluralize question_response.votes.count, 'bubble' %>
+    </div>
+    <div class="flex justify-end">
+      <% if current_user %>
+        <% user_vote = @user_votes.find { |v| v.voteable == question_response } %>
+        <%= turbo_frame_tag dom_id(question_response, :votes) do %>
+          <% if user_vote %>
+            <%= render 'votes/voted_button', vote: user_vote %>
+          <% else %>
+            <%= render 'votes/vote_button', vote: Vote.new(voteable: question_response) %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>

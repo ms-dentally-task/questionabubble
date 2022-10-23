@@ -1,0 +1,3 @@
+<%= turbo_stream.update dom_id(@vote.voteable, :votes) do %>
+  <%= render 'voted_button', vote: @vote %>
+<% end %>
