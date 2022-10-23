@@ -10,6 +10,10 @@ class QuestionsController < ApplicationController
   def show
   end
 
+  def index
+    @questions = Question.includes(:user).where.associated(:user).order(created_at: :desc).last(100)
+  end
+
   def create
     @question = Question.new(question_params)
     @question.user = current_user

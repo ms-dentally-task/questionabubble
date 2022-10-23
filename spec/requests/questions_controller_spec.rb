@@ -62,4 +62,16 @@ RSpec.describe 'QuestionsController', type: :request do
       end
     end
   end
+
+  describe '#index' do
+   let(:index_action) { get questions_path }
+
+    context 'as a non-logged-in user' do
+      it 'returns a success response' do
+        index_action
+
+        expect(response).to have_http_status(:ok)
+      end
+    end
+  end
 end

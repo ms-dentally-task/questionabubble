@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "questions#new"
 
-  resources :questions, only: [:new, :create, :show]
+  resources :questions, only: [:new, :create, :show, :index]
 end
