@@ -2,6 +2,7 @@
 
 class QuestionsController < ApplicationController
   def new
+    @question = Question.new
   end
 
   def create
@@ -10,7 +11,10 @@ class QuestionsController < ApplicationController
     if @question.save
       head :created
     else
-      render :new
+      respond_to do |format|
+        format.html { render :new }
+        format.turbo_stream { render status: :unprocessable_entity }
+      end
     end
   end
 
