@@ -41,5 +41,25 @@ RSpec.describe 'RegistrationsController', type: :request do
         expect(response).to redirect_to(question_path(question))
       end
     end
+
+    context 'with a question response slug' do
+      let(:question) { Question.create(body: 'DummyBody') }
+      let(:question_response) { QuestionResponse.create(body: 'DummyBody', question: question) }
+      let(:valid_params) { super().merge(question_response: question_response.slug) }
+
+      it 'associates the user with the question response' do
+        create_action
+
+        question_response.reload
+
+        expect(question_response.user).to_not be_nil
+      end
+
+      it 'redirects to the question response' do
+        create_action
+
+        expect(response).to redirect_to(question_response_path(question_response))
+      end
+    end
   end
 end
