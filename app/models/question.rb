@@ -8,6 +8,10 @@ class Question < ApplicationRecord
   validates_presence_of :body, message: 'Please enter some text for your question.'
   validates :slug, presence: true
 
+  def to_param
+    slug
+  end
+
   private
 
   def create_slug

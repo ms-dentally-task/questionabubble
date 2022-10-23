@@ -15,6 +15,19 @@ RSpec.describe 'QuestionsController', type: :request do
     end
   end
 
+  describe '#show' do
+   let(:question) { Question.create!(body: 'example') }
+   let(:show_action) { get question_path(question) }
+
+    context 'as a non-logged-in user' do
+      it 'returns a success response' do
+        show_action
+
+        expect(response).to have_http_status(:ok)
+      end
+    end
+  end
+
   describe '#create' do
     context 'as a non-logged-in user' do
       context 'with valid params' do

@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 
 class QuestionsController < ApplicationController
+  before_action :set_question, only: :show
+
   def new
     @question = Question.new
+  end
+
+  def show
   end
 
   def create
@@ -22,5 +27,9 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:body)
+  end
+
+  def set_question
+    @question = Question.find_by!(slug: params[:id])
   end
 end
