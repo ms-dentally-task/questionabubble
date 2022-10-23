@@ -6,6 +6,8 @@ describe QuestionResponse, type: :model do
   it { is_expected.to belong_to(:user).optional }
   it { is_expected.to belong_to(:question) }
 
+  it { is_expected.to have_many(:votes) }
+
   it { is_expected.to validate_presence_of(:body).with_message(/Please enter some text/) }
 
   describe '#create_slug' do

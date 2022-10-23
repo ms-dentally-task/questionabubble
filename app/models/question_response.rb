@@ -6,6 +6,8 @@ class QuestionResponse < ApplicationRecord
   belongs_to :question
   belongs_to :user, optional: true
 
+  has_many :votes, as: :voteable
+
   validates_presence_of :body, message: 'Please enter some text for your answer.'
 
   def to_param
