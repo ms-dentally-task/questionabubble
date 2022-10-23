@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
-class Question < ApplicationRecord
+class QuestionResponse < ApplicationRecord
   before_validation :create_slug, if: -> { slug.blank? }
 
+  belongs_to :question
   belongs_to :user, optional: true
 
-  has_many :question_responses
-
-  validates_presence_of :body, message: 'Please enter some text for your question.'
-  validates :slug, presence: true
+  validates_presence_of :body, message: 'Please enter some text for your answer.'
 
   def to_param
     slug
