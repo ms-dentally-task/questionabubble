@@ -22,6 +22,7 @@ cd questionabubble
 
 - Run `bundle install` to install the gems
 - Run `bin/rails db:create` to create a SQLite database
+- Run `bin/rails db:migrate` to create the required tables
 - Run `bin/dev` to start the app
 - Navigate to `http://localhost:3000` to visit the app in your browser
 
